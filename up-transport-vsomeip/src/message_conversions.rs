@@ -600,9 +600,9 @@ mod tests {
 
     #[test]
     fn test_ucode_to_vsomeip_err_code_ok() {
-        assert_eq!(
-            UMessageToVsomeipMessage::ucode_to_vsomeip_err_code(UCode::OK),
-            vsomeip::return_code_e::E_OK
+        assert!(
+            UMessageToVsomeipMessage::ucode_to_vsomeip_err_code(UCode::OK)
+                == vsomeip::return_code_e::E_OK
         );
     }
 
@@ -618,9 +618,9 @@ mod tests {
             UCode::OUT_OF_RANGE,
             UCode::UNIMPLEMENTED,
         ] {
-            assert_eq!(
-                UMessageToVsomeipMessage::ucode_to_vsomeip_err_code(ucode),
-                vsomeip::return_code_e::E_NOT_OK,
+            assert!(
+                UMessageToVsomeipMessage::ucode_to_vsomeip_err_code(ucode)
+                    == vsomeip::return_code_e::E_NOT_OK,
                 "unexpected SOME/IP fallback for {ucode:?}"
             );
         }
@@ -683,13 +683,11 @@ mod tests {
         )
         .await
         .unwrap();
-        assert_eq!(
-            converted.get_message_base_pinned().get_message_type(),
-            message_type_e::MT_RESPONSE
+        assert!(
+            converted.get_message_base_pinned().get_message_type() == message_type_e::MT_RESPONSE
         );
-        assert_eq!(
-            converted.get_message_base_pinned().get_return_code(),
-            vsomeip::return_code_e::E_OK
+        assert!(
+            converted.get_message_base_pinned().get_return_code() == vsomeip::return_code_e::E_OK
         );
     }
 
