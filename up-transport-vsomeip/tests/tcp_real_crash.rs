@@ -313,7 +313,7 @@ fn bar(ch: char) {
 #[allow(clippy::await_holding_lock)]
 async fn real_tcp_crash_without_fix() {
     let _lock = TEST_MUTEX.lock().unwrap();
-    let _ = env_logger::builder().is_test(true).try_init();
+    let _ = tracing_subscriber::fmt::try_init();
 
     println!();
     bar('═');
@@ -378,7 +378,7 @@ async fn real_tcp_crash_without_fix() {
 #[allow(clippy::await_holding_lock)]
 async fn real_tcp_stable_with_fix() {
     let _lock = TEST_MUTEX.lock().unwrap();
-    let _ = env_logger::builder().is_test(true).try_init();
+    let _ = tracing_subscriber::fmt::try_init();
 
     println!();
     bar('═');
